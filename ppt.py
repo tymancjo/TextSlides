@@ -4,7 +4,7 @@
 # imports
 import sys,os
 import curses
-
+import time
 
 def read_slides_data_file(slide_file):
     '''
@@ -83,10 +83,8 @@ def simple_print(slides_data):
         print('\n')
         print('\n')
 
-
-
+# Reading the line parameter
 argv = sys.argv[1]
-
 simple_print(get_slides(read_slides_data_file(argv)))
 
 
