@@ -120,17 +120,30 @@ def slide_show(stdscr, slides_data):
 
     while (k != ord('q')):
 
-        current_slide = slides_data[slide_position]
-        current_title = current_slide[0]
-        current_lines = current_slide[1]
-
         # Initialization
         stdscr.clear()
         height, width = stdscr.getmaxyx()
 
-        start_x = (width - len(current_title)) // 2
-        start_y = 1 + (height - 3 - len( current_lines ) - 2) // 2
-        start_x = min(start_x, width // 5)
+        current_slide = slides_data[slide_position]
+        current_title = current_slide[0]
+        current_lines = current_slide[1]
+
+        desired_text_width = width // 2
+
+        lines_for_title = len(current_title) // desired_text_width
+        
+        lines_for_text = 0
+        for line in current_lines:
+            lines_for_text += len(line) // desired_text_width
+
+        spare_rows = height - lines_for_title - lines_for_text
+        if spare_rows > 2:
+            start_y = spare_rows // 2
+
+
+
+        start_x = (width - desired_text_width) // 2
+        start_x = min(start_x, (width - len(current_title) // 2))
 
         # Turning on attributes for title
         stdscr.attron(curses.color_pair(2))
@@ -146,7 +159,7 @@ def slide_show(stdscr, slides_data):
 
 
         # Print rest of text
-        start_y += 5
+        start_y += 2
         
         for line in current_lines:
             stdscr.addstr(start_y, start_x, line)

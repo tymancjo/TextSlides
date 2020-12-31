@@ -25,3 +25,5 @@ Dziś piękność twą w całej ozdobie widze i opisuję
 bo tęsknię po tobie.
 
 # Dziękuję
+
+# Szczęśliwego nowego roku!
