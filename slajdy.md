@@ -1,19 +1,9 @@
-# Pierwszy slajd
+# Cześć i dzień dobry 
 
-Tekst pierwszego slajdu
-Linia druga
-Linia trzecia 
-Oraz inna jeszcze linia oraz sam nie wiem co,
-
-
-
-# Drugi slajd
-
-Lore ipsum hapciu papciu
-- punkty
-- lista 
-- inne tematy 
-- a także jeszcze coś
+# to co było dobre w 2020
+- czas z rodziną 
+- wyzwania w pracy
+- dużo ciekawych działań
 
 # Trzeci slajd
 
@@ -34,4 +24,4 @@ kto Cię stracił
 Dziś piękność twą w całej ozdobie widze i opisuję
 bo tęsknię po tobie.
 
-
+# Dziękuję
