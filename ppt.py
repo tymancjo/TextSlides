@@ -72,6 +72,24 @@ def get_slides(raw_data):
 
     return slides
 
+
+def break_line(line, max_length):
+    # making title split to words
+    words = line.strip().split(' ')
+    new_line = []
+    temp_line = ''
+
+    for word in words:
+        if len(temp_line) <= max_length:
+            temp_line += word + ' '
+        else:
+            new_line.append( temp_line )
+            temp_line = word + ' '
+
+    new_line.append( temp_line )
+    return new_line
+
+
 def simple_print(slides_data):
     '''
     This procedure is about simple print out
@@ -119,54 +137,42 @@ def slide_show(stdscr, slides_data):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
     while (k != ord('q')):
-
         # Initialization
         stdscr.clear()
         height, width = stdscr.getmaxyx()
+        desired_text_width = width // 2
+        start_x = (width - desired_text_width) // 2
 
         current_slide = slides_data[slide_position]
-        current_title = current_slide[0]
-        current_lines = current_slide[1]
+        new_title = break_line(current_slide[0], desired_text_width)
 
-        desired_text_width = width // 2
+        new_lines = []
+        for line in current_slide[1]:
+            new_lines.extend(break_line(line, desired_text_width))
 
-        lines_for_title = len(current_title) // desired_text_width
-        
-        lines_for_text = 0
-        for line in current_lines:
-            lines_for_text += len(line) // desired_text_width
+        start_y = max(0, (height - len(new_title) - len(new_lines) - 1) // 2)
 
-        spare_rows = height - lines_for_title - lines_for_text
-        if spare_rows > 2:
-            start_y = spare_rows // 2
-
-
-
-        start_x = (width - desired_text_width) // 2
-        start_x = min(start_x, (width - len(current_title) // 2))
-
+        # Rendering title
         # Turning on attributes for title
         stdscr.attron(curses.color_pair(2))
         stdscr.attron(curses.A_BOLD)
 
-        # Rendering title
-        stdscr.addstr(start_y, start_x, current_title)
-        stdscr.move(0, 0)
+        for line in new_title:
+            stdscr.addstr(start_y, start_x, line) 
+            start_y += 1 
+
         # Turning off attributes for title
         stdscr.attroff(curses.color_pair(2))
         stdscr.attroff(curses.A_BOLD)
 
-
-
-        # Print rest of text
-        start_y += 2
-        
-        for line in current_lines:
+        # Rendering the text
+        for line in new_lines:
             stdscr.addstr(start_y, start_x, line)
             stdscr.move(0, 0)
             start_y += 1
 
         # Refresh the screen
+        stdscr.move(0, 0)
         stdscr.refresh()
 
         # Wait for next input
@@ -181,6 +187,8 @@ def slide_show(stdscr, slides_data):
 
     curses.echo()
     curses.endwin()
+
+
 
 
 # Reading the line parameter
