@@ -6,6 +6,19 @@ import sys,os
 import curses
 import time
 
+######################################
+# Global variables for convenience 
+next_keys = ['n',' ','.']
+prev_keys = ['p',',']
+quit_keys = ['q','z']
+
+# preparing the key variables
+next_keys = [ord(k) for k in next_keys]
+prev_keys = [ord(k) for k in prev_keys]
+quit_keys = [ord(k) for k in quit_keys]
+######################################
+
+
 def read_slides_data_file(slide_file):
     '''
     This functions read the given text file
@@ -136,7 +149,7 @@ def slide_show(stdscr, slides_data):
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
-    while (k != ord('q')):
+    while (k not in quit_keys):
         # Initialization
         stdscr.clear()
         height, width = stdscr.getmaxyx()
@@ -178,10 +191,10 @@ def slide_show(stdscr, slides_data):
         # Wait for next input
         k = stdscr.getch()
 
-        if k == ord('n'):
+        if k in next_keys:
             slide_position += 1
             slide_position = min(slide_position, max_slide_pos)
-        elif k == ord('p'):
+        elif k in prev_keys:
             slide_position -=1
             slide_position = max( slide_position, 0 )
 
