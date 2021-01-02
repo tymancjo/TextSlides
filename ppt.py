@@ -171,7 +171,8 @@ def slide_show(stdscr, slides_data):
         stdscr.attron(curses.A_BOLD)
 
         for line in new_title:
-            stdscr.addstr(start_y, start_x, line) 
+            if start_y < height:
+                stdscr.addstr(start_y, start_x, line) 
             start_y += 1 
 
         # Turning off attributes for title
@@ -180,7 +181,8 @@ def slide_show(stdscr, slides_data):
 
         # Rendering the text
         for line in new_lines:
-            stdscr.addstr(start_y, start_x, line)
+            if start_y < height:
+                stdscr.addstr(start_y, start_x, line)
             stdscr.move(0, 0)
             start_y += 1
 
