@@ -5,6 +5,7 @@
 import sys,os
 import curses
 import time
+import random
 
 ######################################
 # Global variables for convenience 
@@ -86,6 +87,63 @@ def get_slides(raw_data):
     return slides
 
 
+def animate_line(stdscr, line, start_x, y, n):
+    '''
+    Just a simple procedure to make the line appear as 
+    like be drawn.
+    input:
+        stdscr - screen object of curse
+        line - text to be placed
+        start_x - start x position
+        y - y position of the line
+        n - delay in form of number of random marks
+    '''
+
+    jubbrisch = '#@$^%*&?><{}!'
+    jubbrisch = [k for k in jubbrisch]
+     
+    for _ in range(n):
+        x = start_x
+        for _ in line:
+            j = random.choice(jubbrisch)
+            stdscr.addstr(y, x, j)
+            x += 1
+        stdscr.refresh()
+        time.sleep(0.01)
+
+    stdscr.addstr(y, start_x, line)
+    stdscr.refresh()
+
+
+
+def animate_chr(stdscr, line, start_x, y, n):
+    '''
+    Just a simple procedure to make the line appear as 
+    like be drawn.
+    input:
+        stdscr - screen object of curse
+        line - text to be placed
+        start_x - start x position
+        y - y position of the line
+        n - delay in form of number of random marks
+    '''
+
+    jubbrisch = '#@$^%*&?><{}!'
+    jubbrisch = [k for k in jubbrisch]
+     
+    x = start_x
+
+    for k in line:
+        for _ in range(n):
+            j = random.choice(jubbrisch)
+            stdscr.addstr(y, x, j)
+            time.sleep(0.01)
+            stdscr.refresh()
+        stdscr.addstr(y, x, k)
+        stdscr.refresh()
+        x += 1
+
+
 def break_line(line, max_length):
     # making title split to words
     words = line.strip().split(' ')
@@ -94,10 +152,12 @@ def break_line(line, max_length):
 
     for word in words:
         if len(temp_line) <= max_length:
-            temp_line += word + ' '
+            if word != '':
+                temp_line += word + ' '
         else:
             new_line.append( temp_line )
-            temp_line = word + ' '
+            if word != '':
+                temp_line = word + ' '
 
     new_line.append( temp_line )
     return new_line
@@ -182,7 +242,9 @@ def slide_show(stdscr, slides_data):
         # Rendering the text
         for line in new_lines:
             if start_y < height:
-                stdscr.addstr(start_y, start_x, line)
+                # stdscr.addstr(start_y, start_x, line)
+                animate_line(stdscr, line, start_x, start_y, 5)
+                
             stdscr.move(0, 0)
             start_y += 1
 
