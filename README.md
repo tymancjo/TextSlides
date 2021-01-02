@@ -7,7 +7,7 @@ A simple terminal oriented Text based slides presenter in ptyhon
 This simple tool was created as a part of checking out the curses python library.
 
 ## What it does
-It take the given txr file and plays it as kind of slides in the terminal.
+It take the given txt file and plays it as kind of slides in the terminal.
 
 ## How it works
 Just use the command like:
@@ -21,9 +21,9 @@ The structure is like this:
 Each slide is placed on separated screen with the title in top. If the tekst is longer than the available space it will be cut to the possible to show area.
 
 Then use:
-- `n` for next slide
-- `p` for previous slide
-- `q` to quit
+- `n` `.` _space_ for next slide
+- `p` `,` for previous slide
+- `q` `z` to quit
 
 
 ## Example side file text
@@ -40,4 +40,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia leo ligu
 ## Can it be useful?
 
 I believe yes, if you want to make a quick talk and you do have a terminal that can work in full screen and preferably with support for the font size change. 
-And if you believe that such simple tool can do the job I do encourage you to look for the "Death by PowerPoint talk" on YouTube :) 
+And if you believe that such simple tool can't do the job I do encourage you to look for the "Death by PowerPoint talk" on YouTube :) 
